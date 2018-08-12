@@ -48,8 +48,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         if let touch = touches.first {
             let touchLocation = touch.location(in: sceneView)
             let hitTestResults = sceneView.hitTest(touchLocation, types: .featurePoint)
-            if let hitTestResult = hitTestResults.first {
+            if let hitResult = hitTestResults.first {
                 
+            
                 addDot(at: hitResult)
                 
                 
@@ -65,7 +66,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
        dotGeometry.materials = [material]
         
         let dotNode = SCNNode()
-        dotGeometry.position = 
+        dotNode.position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
         
         dotNode.geometry = dotGeometry
         sceneView.scene.rootNode.addChildNode(dotNode)
